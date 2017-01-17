@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+     <security:http pattern="/Login" security="none"/>
+     <security:http>
+          <security:intercept-url pattern="/**" access="ROLE_USER"/>
+          <security:form-login login-page="/Login" authentication-failure-url="/Login" default-target-url="/"/>
+     </security:http>
+     <import resource="servlet-context.xml"/>
+     <security:authentication-manager>
+       <security:authentication-provider>
+          <security:password-encoder ref="encoder"/>
+          <security:user-service>
+             <security:user name="user" password="$2a$12$iXwzmL1x17ogaGEP4zTL9esY0uucgLPfmcz/LWGWsvDrZ5PMes79C" authorities="ROLE_USER"/>
+          </security:user-service>
+       </security:authentication-provider>
+     </security:authentication-manager>
+</beans>
